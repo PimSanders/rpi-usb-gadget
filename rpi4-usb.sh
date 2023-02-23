@@ -77,19 +77,19 @@ if [[ ! -e /etc/dnsmasq.d ]] ; then
 fi
 
 # configure dnsmasq for usb0
-if [[ ! -e /etc/dnsmasq.d/usb-gadget ]] ; then
-	cat << EOF | sudo tee /etc/dnsmasq.d/usb-gadget > /dev/null
-dhcp-rapid-commit
-dhcp-authoritative
-no-ping
-interface=usb0
-dhcp-range=usb0,$BASE_IP.2,$BASE_IP.6,255.255.255.248,1h
-domain=usb.lan
-dhcp-option=usb0,3
-leasefile-ro
-EOF
-    echo "Created /etc/dnsmasq.d/usb-gadget"
-fi
+# if [[ ! -e /etc/dnsmasq.d/usb-gadget ]] ; then
+# 	cat << EOF | sudo tee /etc/dnsmasq.d/usb-gadget > /dev/null
+# dhcp-rapid-commit
+# dhcp-authoritative
+# no-ping
+# interface=usb0
+# dhcp-range=usb0,$BASE_IP.2,$BASE_IP.6,255.255.255.248,1h
+# domain=usb.lan
+# dhcp-option=usb0,3
+# leasefile-ro
+# EOF
+#     echo "Created /etc/dnsmasq.d/usb-gadget"
+# fi
 
 # configure static ip for interface usb0
 if [[ ! -e /etc/network/interfaces.d/usb0 ]] ; then
