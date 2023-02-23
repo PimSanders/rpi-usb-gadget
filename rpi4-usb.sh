@@ -8,7 +8,7 @@
 # Options for later
 USBFILE=/usr/local/sbin/usb-gadget.sh
 UNITFILE=/lib/systemd/system/usb-gadget.service
-BASE_IP=10.55.0
+BASE_IP=192.168.137
 
 # some usefull functions
 confirm() {
@@ -97,7 +97,7 @@ if [[ ! -e /etc/network/interfaces.d/usb0 ]] ; then
 auto usb0
 allow-hotplug usb0
 iface usb0 inet static
-  address $BASE_IP.1
+  address $BASE_IP.10
   netmask 255.255.255.248
 EOF
     echo "Created /etc/network/interfaces.d/usb0"
