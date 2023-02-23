@@ -68,29 +68,6 @@ teeconfirm "libcomposite" "/etc/modules"
 
 teeconfirm "denyinterfaces usb0" "/etc/dhcpcd.conf"
 
-# install dnsmasq
-# if [[ ! -e /etc/dnsmasq.d ]] ; then
-#     echo
-#     echo "Install dnsmasq"
-#     ! confirm && exit
-#     sudo apt install dnsmasq
-# fi
-
-# configure dnsmasq for usb0
-# if [[ ! -e /etc/dnsmasq.d/usb-gadget ]] ; then
-# 	cat << EOF | sudo tee /etc/dnsmasq.d/usb-gadget > /dev/null
-# dhcp-rapid-commit
-# dhcp-authoritative
-# no-ping
-# interface=usb0
-# dhcp-range=usb0,$BASE_IP.2,$BASE_IP.6,255.255.255.248,1h
-# domain=usb.lan
-# dhcp-option=usb0,3
-# leasefile-ro
-# EOF
-#     echo "Created /etc/dnsmasq.d/usb-gadget"
-# fi
-
 # configure static ip for interface usb0
 if [[ ! -e /etc/network/interfaces.d/usb0 ]] ; then
     cat << EOF | sudo tee /etc/network/interfaces.d/usb0 > /dev/null
@@ -98,7 +75,9 @@ auto usb0
 allow-hotplug usb0
 iface usb0 inet static
   address $BASE_IP.10
-  netmask 255.255.255.248
+  netmask 255.255.255.0
+  gateway 192.168.137.1
+  dns-nameservers 1.1.1.1
 EOF
     echo "Created /etc/network/interfaces.d/usb0"
 fi
@@ -118,7 +97,7 @@ device_protocol="0x01"
 vendor_id="0x1d50"
 product_id="0x60c7"
 manufacturer="Ian"
-product="RPi4 USB Gadget"
+product="RPi 0W USB Gadget"
 serial="fedcba9876543211"
 attr="0x80" # Bus powered
 power="250"
@@ -286,7 +265,7 @@ cat << EOF
 
 Done setting up as USB gadget
 You must reboot for changes to take effect
-You can reach the device on $BASE_IP.1 when connected by USB
+You can reach the device on $BASE_IP.10 when connected by USB
 
 If you want to disable the usb0/gadget interface then
 please run 'sudo systemctl disable usb-gadget'
