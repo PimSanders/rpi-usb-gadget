@@ -69,12 +69,12 @@ teeconfirm "libcomposite" "/etc/modules"
 teeconfirm "denyinterfaces usb0" "/etc/dhcpcd.conf"
 
 # install dnsmasq
-if [[ ! -e /etc/dnsmasq.d ]] ; then
-    echo
-    echo "Install dnsmasq"
-    ! confirm && exit
-    sudo apt install dnsmasq
-fi
+# if [[ ! -e /etc/dnsmasq.d ]] ; then
+#     echo
+#     echo "Install dnsmasq"
+#     ! confirm && exit
+#     sudo apt install dnsmasq
+# fi
 
 # configure dnsmasq for usb0
 # if [[ ! -e /etc/dnsmasq.d/usb-gadget ]] ; then
